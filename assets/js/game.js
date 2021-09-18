@@ -15,7 +15,7 @@ var fight = function(enemyName) {
     if (promptFight === "fight" || promptFight === "FIGHT") {
         while (playerHealth > 0 && enemyHealth > 0){
         //Subtract the value of `playerAttack` from the value of `enemyHealth` and use that result to update the value in the `enemyHealth` variable
-            enemyHealth = enemyHealth - playerAttack;
+            enemyHealth = Math.max(0, enemyHealth - playerAttack);
         // Log a resulting message to the console so we know that it worked.
             console.log(playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaing");
             if (enemyHealth <= 0) {
@@ -26,7 +26,7 @@ var fight = function(enemyName) {
                 window.alert (enemyName + " is still alive and has " + enemyHealth + " health left.");
             }
             // Subtract the value of `enemyAttack` from the value of `playerHealth` and use that result to update the value in the `playerHealth` variable.
-            playerHealth = playerHealth - enemyAttack;
+            playerHealth = Math.max(0, playerHealth - enemyAttack);
         // Log a resulting message to the console so we know that it worked.
             console.log(enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining");
             if (playerHealth <= 0) {
@@ -41,8 +41,8 @@ var fight = function(enemyName) {
         var confrimSkip = window.confirm("Are you sure you would like to skip the fight?");
         if (confrimSkip) {
             window.alert(playerName + " has decided to skip the fight!");
-            playerMoney = playerMoney - 2
-            console.log("playerMony", playerMoney)
+            playerMoney = math.max(0, playerMoney - 2);
+            console.log("playerMony", playerMoney);
         }else {
             fight();
         }
@@ -110,6 +110,11 @@ var shop = function(){
       }
 }
 
+var randomNumber = function(min, max){
+    var value = Math.floor(Math.random() * (max - min +1) + min);
+    return value;
+};
+
 var startGame = function(){
     playerHealth = 100
     playerAttack = 10
@@ -122,7 +127,7 @@ var startGame = function(){
             shop();
             }
         }
-        enemyHealth = 50;
+        enemyHealth = randomNumber(40,60);
         if(playerHealth > 0){
             fight(pickedEnemyName);
         }else{;
